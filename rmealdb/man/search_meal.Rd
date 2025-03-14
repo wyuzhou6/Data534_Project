@@ -2,7 +2,7 @@
 % Please edit documentation in R/search_meal.R
 \name{search_meal}
 \alias{search_meal}
-\title{Search for a meal by name}
+\title{Search for a Meal by Name}
 \usage{
 search_meal(query)
 }
@@ -17,4 +17,5 @@ This function searches for meals in TheMealDB API by a given name.
 }
 \examples{
 search_meal("pasta")
+
 }

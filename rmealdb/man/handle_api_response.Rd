@@ -7,11 +7,15 @@
 handle_api_response(response)
 }
 \arguments{
-\item{response}{The HTTP response object from httr::GET()}
+\item{response}{The HTTP response object from httr2.}
 }
 \value{
 A parsed JSON object or NULL if the response is invalid.
 }
 \description{
 Checks if the API response is valid and extracts data.
+}
+\examples{
+handle_api_response(response)
+
 }
