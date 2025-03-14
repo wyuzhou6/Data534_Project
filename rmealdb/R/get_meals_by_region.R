@@ -20,12 +20,6 @@ get_meals_by_region <- function(region) {
   }
 
   return(response$meals)
-<<<<<<< HEAD
+
 }
-=======
-}
-<<<<<<< HEAD
-}
->>>>>>> Yubo
-=======
->>>>>>> Yubo
+
