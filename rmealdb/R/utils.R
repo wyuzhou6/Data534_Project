@@ -7,6 +7,7 @@
 #' @examples
 #' handle_api_response(response)
 #' @export
+#' 
 handle_api_response <- function(response) {
   # Check if the HTTP response status is not successful (status code 200)
   if (httr2::resp_status(response) != 200) {

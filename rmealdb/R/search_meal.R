@@ -7,6 +7,7 @@
 #' @examples
 #' search_meal("pasta")
 #' @export
+library(httr2)
 search_meal <- function(query) {
   url <- paste0("https://www.themealdb.com/api/json/v1/1/search.php?s=", query)
 
