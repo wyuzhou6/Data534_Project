@@ -38,5 +38,7 @@ get_meals_by_category <- function(category) {
 }
 
 # Test the function
-result <- get_meals_by_category("Seafood")
-print(result)
+if (interactive()) {
+  result <- get_meals_by_category("Seafood")
+  print(result)
+}

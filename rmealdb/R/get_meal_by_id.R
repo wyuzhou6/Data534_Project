@@ -59,5 +59,9 @@ get_meal_by_id <- function(id) {
 }
 
 # Test the function
+# result <- get_meal_by_id("52772")
+# print(result)
+if (interactive()) {
 result <- get_meal_by_id("52772")
 print(result)
+}

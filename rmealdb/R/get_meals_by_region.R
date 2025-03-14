@@ -38,5 +38,8 @@ get_meals_by_region <- function(region) {
 }
 
 # Test the function
+
+if (interactive()) {
 result <- get_meals_by_region("Italian")
 print(result)
+}

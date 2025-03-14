@@ -54,3 +54,7 @@ get_random_meal <- function() {
 # Test the function
 result <- get_random_meal()
 print(result)
+if (interactive()) {
+result <- get_random_meal()
+print(result)
+}

@@ -64,5 +64,9 @@ search_meal <- function(query) {
 }
 
 # Test the function
+
+
+if (interactive()) {
 result <- search_meal("pasta")
 print(result)
+}
