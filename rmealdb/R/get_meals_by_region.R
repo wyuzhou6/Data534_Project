@@ -1,46 +1,30 @@
-library(tidyverse)
-library(httr2)
-
 #' Get Meals by Region
 #'
-#' Retrieves meals from a specific region/country.
+#' Fetches a list of meals from a specific region/country using TheMealDB API.
 #'
-#' @param region A character string specifying the region.
-#' @return A dataframe containing meal names and their IDs.
+#' @param region A character string specifying the meal region (e.g., "Italian").
+#' @return A list containing meal data as returned by the API, or NULL if no meals are found.
 #' @export
+#' @importFrom magrittr %>%
 #' @examples
 #' get_meals_by_region("Italian")
-
 get_meals_by_region <- function(region) {
-  url <- paste0("https://www.themealdb.com/api/json/v1/1/filter.php?a=", region)
-
-  # Get the API response
-  response <- httr2::request(url) %>%
-    httr2::req_perform() %>%
-    httr2::resp_body_json()
-
-  # Check if meals exist
-  if (is.null(response$meals)) {
-    message("Invalid region or no meals found.")
-    return(NULL)
+  if (!is.character(region) || nchar(region) == 0) {
+    stop("Region must be a non-empty character string.")
   }
-
-  # Extract meals list
-  meals <- response$meals
-
-  # Convert to data frame
-  df <- tibble(
-    idMeal = map_chr(meals, "idMeal", .default = NA_character_),
-    strMeal = map_chr(meals, "strMeal", .default = NA_character_),
-    strMealThumb = map_chr(meals, "strMealThumb", .default = NA_character_)
-  )
-
-  return(df)
-}
-
-# Test the function
-
-if (interactive()) {
-result <- get_meals_by_region("Italian")
-print(result)
+  
+  url <- sprintf("https://www.themealdb.com/api/json/v1/1/filter.php?a=%s", region)
+  tryCatch({
+    response <- httr2::request(url) %>% 
+      httr2::req_perform()
+    data <- handle_api_response(response)
+    if (is.null(data$meals)) {
+      warning("Invalid region or no meals found.")
+      return(NULL)
+    }
+    return(data$meals)
+  }, error = function(e) {
+    warning("Error fetching meals by region: ", e$message)
+    return(NULL)
+  })
 }

@@ -2,18 +2,18 @@
 % Please edit documentation in R/get_meal_by_id.R
 \name{get_meal_by_id}
 \alias{get_meal_by_id}
-\title{Get Meal Details by ID}
+\title{Get Meal by ID}
 \usage{
-get_meal_by_id(id)
+get_meal_by_id(meal_id)
 }
 \arguments{
-\item{id}{A character string representing the meal ID.}
+\item{meal_id}{A character string specifying the meal ID (e.g., "52772").}
 }
 \value{
-A dataframe containing meal details.
+A list containing meal data as returned by the API, or NULL if the ID is invalid.
 }
 \description{
-Fetches detailed meal information using a unique ID.
+Fetches a meal's details based on its ID from TheMealDB API.
 }
 \examples{
 get_meal_by_id("52772")

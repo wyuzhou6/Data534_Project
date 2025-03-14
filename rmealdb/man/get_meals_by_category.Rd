@@ -7,13 +7,13 @@
 get_meals_by_category(category)
 }
 \arguments{
-\item{category}{A character string specifying the category.}
+\item{category}{A character string specifying the meal category (e.g., "Seafood").}
 }
 \value{
-A dataframe containing meal names and their IDs.
+A list containing meal data as returned by the API, or NULL if no meals are found.
 }
 \description{
-Retrieves meals belonging to a specific category.
+Fetches a list of meals for a given category from TheMealDB API.
 }
 \examples{
 get_meals_by_category("Seafood")

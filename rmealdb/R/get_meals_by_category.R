@@ -1,45 +1,29 @@
-library(tidyverse)
-library(httr2)
-
 #' Get Meals by Category
 #'
-#' Retrieves meals belonging to a specific category.
+#' Fetches a list of meals for a given category from TheMealDB API.
 #'
-#' @param category A character string specifying the category.
-#' @return A dataframe containing meal names and their IDs.
+#' @param category A character string specifying the meal category (e.g., "Seafood").
+#' @return A list containing meal data as returned by the API, or NULL if no meals are found.
 #' @export
 #' @examples
 #' get_meals_by_category("Seafood")
-
 get_meals_by_category <- function(category) {
-  url <- paste0("https://www.themealdb.com/api/json/v1/1/filter.php?c=", category)
-
-  # Get the API response
-  response <- httr2::request(url) %>%
-    httr2::req_perform() %>%
-    httr2::resp_body_json()
-
-  # Check if meals exist
-  if (is.null(response$meals)) {
-    message("Invalid category or no meals found.")
-    return(NULL)
+  if (!is.character(category) || nchar(category) == 0) {
+    stop("Category must be a non-empty character string.")
   }
-
-  # Extract meals list
-  meals <- response$meals
-
-  # Convert to data frame
-  df <- tibble(
-    idMeal = map_chr(meals, "idMeal", .default = NA_character_),
-    strMeal = map_chr(meals, "strMeal", .default = NA_character_),
-    strMealThumb = map_chr(meals, "strMealThumb", .default = NA_character_)
-  )
-
-  return(df)
-}
-
-# Test the function
-if (interactive()) {
-  result <- get_meals_by_category("Seafood")
-  print(result)
+  
+  url <- sprintf("https://www.themealdb.com/api/json/v1/1/filter.php?c=%s", category)
+  tryCatch({
+    response <- httr2::request(url) %>% 
+      httr2::req_perform()
+    data <- handle_api_response(response)
+    if (is.null(data$meals)) {
+      warning("Invalid category or no meals found.")
+      return(NULL)
+    }
+    return(data$meals)
+  }, error = function(e) {
+    warning("Error fetching meals by category: ", e$message)
+    return(NULL)
+  })
 }

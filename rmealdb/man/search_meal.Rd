@@ -7,15 +7,14 @@
 search_meal(query)
 }
 \arguments{
-\item{query}{A character string with the meal name to search for.}
+\item{query}{A character string with the meal name to search for (e.g., "pasta").}
 }
 \value{
-A dataframe containing meals that match the search query.
+A list containing meal data as returned by the API, or NULL if no results are found.
 }
 \description{
-This function searches for meals in TheMealDB API by a given name.
+Searches for meals in TheMealDB API by a given name.
 }
 \examples{
 search_meal("pasta")
-
 }

@@ -2,28 +2,23 @@
 #'
 #' Lists all available meal categories from TheMealDB API.
 #'
-#' @return A dataframe containing category names and descriptions.
+#' @return A list containing category data as returned by the API, or NULL if no categories are found.
 #' @export
 #' @examples
-#'
-
 #' get_categories()
-library(tidyverse)   # Load the magrittr package for the pipe operator
-
 get_categories <- function() {
   url <- "https://www.themealdb.com/api/json/v1/1/categories.php"
-
-  response <- httr2::request(url) %>%
-    httr2::req_perform() %>%
-    httr2::resp_body_json()
-
-  categories <- response$categories
-  df <- tibble(
-    idCategory = map_chr(categories, "idCategory"),
-    strCategory = map_chr(categories, "strCategory"),
-    strCategoryThumb = map_chr(categories, "strCategoryThumb"),
-    strCategoryDescription = map_chr(categories, "strCategoryDescription"))
-  return(df)
+  tryCatch({
+    response <- httr2::request(url) %>% 
+      httr2::req_perform()
+    data <- handle_api_response(response)
+    if (is.null(data$categories)) {
+      warning("No categories returned from API.")
+      return(NULL)
+    }
+    return(data$categories)
+  }, error = function(e) {
+    warning("Error fetching categories: ", e$message)
+    return(NULL)
+  })
 }
-
-

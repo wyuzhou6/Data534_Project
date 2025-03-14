@@ -7,13 +7,13 @@
 get_meals_by_region(region)
 }
 \arguments{
-\item{region}{A character string specifying the region.}
+\item{region}{A character string specifying the meal region (e.g., "Italian").}
 }
 \value{
-A dataframe containing meal names and their IDs.
+A list containing meal data as returned by the API, or NULL if no meals are found.
 }
 \description{
-Retrieves meals from a specific region/country.
+Fetches a list of meals from a specific region/country using TheMealDB API.
 }
 \examples{
 get_meals_by_region("Italian")

@@ -7,10 +7,10 @@
 get_random_meal()
 }
 \value{
-A dataframe containing details of a randomly selected meal.
+A list containing meal data as returned by the API, or NULL if no meal is returned.
 }
 \description{
-This function fetches a random meal from TheMealDB API.
+Fetches a random meal from TheMealDB API.
 }
 \examples{
 get_random_meal()
