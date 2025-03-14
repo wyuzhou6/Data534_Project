@@ -24,5 +24,8 @@ get_meals_by_region <- function(region) {
 }
 =======
 }
+<<<<<<< HEAD
 }
+>>>>>>> Yubo
+=======
 >>>>>>> Yubo
