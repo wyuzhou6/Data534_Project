@@ -4,6 +4,11 @@
 #'
 #' @return A dataframe containing category names and descriptions.
 #' @examples
+#' @export
+get_random_meal <- function() {
+  # your code
+}
+
 #' get_categories()
 get_categories <- function() {
   url <- "https://www.themealdb.com/api/json/v1/1/categories.php"

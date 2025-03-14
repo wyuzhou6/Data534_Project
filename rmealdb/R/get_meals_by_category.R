@@ -5,6 +5,7 @@
 #' @param category A character string specifying the category.
 #' @return A dataframe containing meal names and their IDs.
 #' @examples
+#' @export
 #' get_meals_by_category("Seafood")
 get_meals_by_category <- function(category) {
   url <- paste0("https://www.themealdb.com/api/json/v1/1/filter.php?c=", category)
