@@ -21,4 +21,3 @@ get_meals_by_region <- function(region) {
 
   return(response$meals)
 }
-}
