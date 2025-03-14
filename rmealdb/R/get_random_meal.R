@@ -6,9 +6,10 @@ library(httr2)
 #' This function fetches a random meal from TheMealDB API.
 #'
 #' @return A dataframe containing details of a randomly selected meal.
+#' @export
 #' @examples
 #' get_random_meal()
-#' @export
+
 get_random_meal <- function() {
   url <- "https://www.themealdb.com/api/json/v1/1/random.php"
 

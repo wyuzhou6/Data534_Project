@@ -7,9 +7,10 @@ library(httr2)
 #'
 #' @param query A character string with the meal name to search for.
 #' @return A dataframe containing meals that match the search query.
+#' @export
 #' @examples
 #' search_meal("pasta")
-#' @export
+#' 
 search_meal <- function(query) {
   url <- paste0("https://www.themealdb.com/api/json/v1/1/search.php?s=", query)
 

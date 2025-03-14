@@ -7,9 +7,10 @@ library(httr2)
 #'
 #' @param id A character string representing the meal ID.
 #' @return A dataframe containing meal details.
+#' @export
 #' @examples
 #' get_meal_by_id("52772")
-#' @export
+
 get_meal_by_id <- function(id) {
   url <- paste0("https://www.themealdb.com/api/json/v1/1/lookup.php?i=", id)
   

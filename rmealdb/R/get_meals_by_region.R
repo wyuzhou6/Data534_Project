@@ -7,9 +7,10 @@ library(httr2)
 #'
 #' @param region A character string specifying the region.
 #' @return A dataframe containing meal names and their IDs.
+#' @export
 #' @examples
 #' get_meals_by_region("Italian")
-#' @export
+
 get_meals_by_region <- function(region) {
   url <- paste0("https://www.themealdb.com/api/json/v1/1/filter.php?a=", region)
 

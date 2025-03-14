@@ -3,8 +3,9 @@
 #' Lists all available meal categories from TheMealDB API.
 #'
 #' @return A dataframe containing category names and descriptions.
-#' @examples
 #' @export
+#' @examples
+#'
 
 #' get_categories()
 library(tidyverse)   # Load the magrittr package for the pipe operator

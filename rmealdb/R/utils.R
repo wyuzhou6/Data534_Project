@@ -4,9 +4,9 @@
 #'
 #' @param response The HTTP response object from httr2.
 #' @return A parsed JSON object or NULL if the response is invalid.
+#' @export
 #' @examples
 #' handle_api_response(response)
-#' @export
 #' 
 handle_api_response <- function(response) {
   # Check if the HTTP response status is not successful (status code 200)
