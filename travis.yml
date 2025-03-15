@@ -1,0 +1,28 @@
+# Use Ubuntu Focal (20.04) as the base distribution
+dist: focal
+
+# Set language to R
+language: r
+
+# R version (latest stable release)
+r:
+  - release
+
+# Cache packages to speed up builds
+cache: packages
+
+# Install system dependencies (if needed)
+before_install:
+  - sudo apt-get update
+
+# Install necessary R dependencies
+install:
+  - Rscript -e 'install.packages(c("devtools", "testthat", "httr2", "dplyr"))'
+
+# Run tests using testthat
+script:
+  - Rscript -e 'devtools::test()'
+
+# Notifications (optional)
+notifications:
+  email: false
