@@ -4,11 +4,10 @@ dist: focal
 # Set language to R
 language: r
 
-# R version (latest stable release)
-r:
-  - release
+# Use the latest R version
+r: release
 
-# Cache packages to speed up builds
+# Cache installed R packages to speed up builds
 cache: packages
 
 # Install system dependencies (if needed)
@@ -17,12 +16,20 @@ before_install:
 
 # Install necessary R dependencies
 install:
-  - Rscript -e 'install.packages(c("devtools", "testthat", "httr2", "dplyr"))'
+  - Rscript -e 'install.packages("remotes")'
+  - Rscript -e 'remotes::install_github("r-lib/httr2")'  # Install httr2 from GitHub
+  - Rscript -e 'install.packages(c("devtools", "testthat", "dplyr"))'
 
-# Run tests using testthat
+# Run tests using testthat and capture logs
 script:
-  - Rscript -e 'devtools::test()'
+  - Rscript -e 'devtools::test()' | tee test_results.log
+
+# Allow Travis to fail without stopping other builds (optional)
+matrix:
+  allow_failures:
+    - r: devel
 
 # Notifications (optional)
 notifications:
   email: false
+
