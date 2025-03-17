@@ -31,13 +31,14 @@ jobs:
         shell: bash
 
       - name: Install R dependencies
+        working-directory: rmealdb
         run: |
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Check R package
+        working-directory: rmealdb
         run: |
-          cd rmealdb  # 进入 R 包所在目录
           rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
         shell: Rscript {0}
