@@ -28,12 +28,19 @@ install.packages("ggplot2")
 install.packages("dplyr")
 install.packages("httr2")
 install.packages("tibble")
+install.packages("devtools")
 
 # Load necessary libraries
-library(rmealdb)
 library(ggplot2)
 library(dplyr)
 library(tibble)
+library(devtools)
+
+# Run the following line to build the package from project directory
+devtools::install()
+
+# Load the package
+library(rmealdb)
 ```
 
 Once these packages are installed and loaded, we can start exploring the data.
