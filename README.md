@@ -3,6 +3,11 @@
 
 An R package to interact with TheMealDB API. 
 
+# My R API Package
+
+[![R Package CI](https://github.com/wyuzhou6/Data534_Project/workflows/R%20Package%20CI/badge.svg)](https://github.com/myusername/myrepo/actions)
+
+
 ## Installation
 ```{r}
 # Install dependencies
