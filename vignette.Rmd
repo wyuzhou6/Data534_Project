@@ -169,4 +169,3 @@ In this vignette, we explored the rmealdb package and demonstrated how to:\
 - Analyze meals by category and region to explore cuisine diversity.\
 - Visualize the distribution of meal categories using ggplot2.\
 The rmealdb package is an excellent tool for food enthusiasts, data scientists, and developers who wish to work with culinary datasets in R. By integrating this workflow into your projects, you can unlock new insights into food trends and recipe data.
-

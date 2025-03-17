@@ -7,17 +7,26 @@
 #' @examples
 #' get_categories()
 get_categories <- function() {
+  # Define API URL for fetching meal categories.
   url <- "https://www.themealdb.com/api/json/v1/1/categories.php"
   tryCatch({
-    response <- httr2::request(url) %>% 
+
+    # Send request to the API and retrieve response.
+    response <- httr2::request(url) %>%
       httr2::req_perform()
+
+    # Process API response.
     data <- handle_api_response(response)
+
+    # Handle cases where no categories are returned.
     if (is.null(data$categories)) {
       warning("No categories returned from API.")
       return(NULL)
     }
     return(data$categories)
   }, error = function(e) {
+
+    # Gracefully handle API request errors.
     warning("Error fetching categories: ", e$message)
     return(NULL)
   })
