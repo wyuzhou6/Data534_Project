@@ -9,9 +9,9 @@ Our consultancy is dedicated to upholding ethical standards in data science, ens
 - **Fairness & Impartiality**: Avoid biases in predictive modeling and analysis to maintain fairness across all movie genres, creators, and performers.
 - **Confidentiality**: Respect sensitive data and ensure that proprietary or personal information is not disclosed without authorization.
 - **Respect & Professionalism**: Engage with users, clients, and stakeholders in a respectful and professional manner.
-
+    
 ## **3. Responsibilities**
-- **Data Analysts & Developers**: Ensure data integrity, avoid biases in models, and follow ethical AI practices.
+- **Data Analysts & Developers**:  Ensure data integrity, avoid biases in models, and follow ethical AI practices.
 - **Users & Industry Professionals**: Use insights responsibly, acknowledging limitations of predictive analytics.
 - **Platform Administrators**: Maintain data security, enforce ethical guidelines, and prevent misuse of the dashboard.
 
