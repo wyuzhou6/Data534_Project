@@ -1,0 +1,35 @@
+# Use Ubuntu Focal (20.04) as the base distribution
+dist: focal
+
+# Set language to R
+language: r
+
+# Use the latest R version
+r: release
+
+# Cache installed R packages to speed up builds
+cache: packages
+
+# Install system dependencies (if needed)
+before_install:
+  - sudo apt-get update
+
+# Install necessary R dependencies
+install:
+  - Rscript -e 'install.packages("remotes")'
+  - Rscript -e 'remotes::install_github("r-lib/httr2")'  # Install httr2 from GitHub
+  - Rscript -e 'install.packages(c("devtools", "testthat", "dplyr"))'
+
+# Run tests using testthat and capture logs
+script:
+  - Rscript -e 'devtools::test()' | tee test_results.log
+
+# Allow Travis to fail without stopping other builds (optional)
+matrix:
+  allow_failures:
+    - r: devel
+
+# Notifications (optional)
+notifications:
+  email: false
+
