@@ -2,6 +2,7 @@
 # rmealdb
 
 An R package to interact with TheMealDB API. 
+![R-CMD-check](https://github.com/wyuzhou6/Data534_Project/actions/workflows/R-CMD-check.yml/badge.svg)
 
 ## Installation
 ```{r}
