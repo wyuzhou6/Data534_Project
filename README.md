@@ -1,7 +1,9 @@
 # Data534_Project
 # rmealdb
 
-An R package to interact with TheMealDB API. 
+An R package to interact with TheMealDB API.   
+
+![Workflow Status](https://github.com/wyuzhou6/Data534_Project/actions/workflows/r.yml/badge.svg)
 
 
 ## Installation
