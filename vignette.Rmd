@@ -1,0 +1,178 @@
+---
+title: "vignette"
+author: "Tianyi Xia"
+date: "2025-03-17"
+output: html_document
+---
+
+# Introduction
+
+The `rmealdb` package provides an interface to TheMealDB API, allowing users to search for meals, retrieve meal details, and explore meal categories and regions.\
+This vignette will walk you through a **complete workflow**, from **fetching meal data** to **visualizing it with a bar chart**.
+
+**Retrieve available meal categories**\
+**Search for specific meals by name**\
+**Fetch detailed recipe information**\
+**Analyze meals by category and region**\
+**Generate a data visualization that summarizes meal distribution**
+
+------------------------------------------------------------------------
+
+# ️1 Installation and Setup
+
+Before using the package, make sure you have the necessary dependencies installed.
+
+```{r}
+# Install required dependencies if not already installed
+install.packages("ggplot2")
+install.packages("dplyr")
+install.packages("httr2")
+install.packages("tibble")
+install.packages("devtools")
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(tibble)
+library(devtools)
+
+# Run the following line to build the package from project directory
+devtools::install()
+
+# Load the package
+library(rmealdb)
+```
+
+Once these packages are installed and loaded, we can start exploring the data.
+
+# 2 Retrieving Available Meal Categories
+
+One of the best ways to begin our analysis is by exploring all available meal categories within the database. Categories define broad classifications of meals, such as "Seafood," "Vegetarian," or "Dessert".\
+To fetch these categories, we use the `get_categories()` function:
+
+```{r}
+# Retrieve a list of meal categories
+categories <- get_categories()
+
+# Convert the list to a structured tibble
+categories_df <- tibble(
+  Category = sapply(categories, `[[`, "strCategory"),
+  Description = sapply(categories, `[[`, "strCategoryDescription")
+)
+
+# Display the first few rows of the categories
+head(categories_df)
+
+```
+
+This function returns a list of meal categories, along with a brief description of each category. By structuring the response into a `tibble`, we ensure that our data is readable and well-organized.\
+Key Insight: Understanding the available categories helps us filter meals effectively based on dietary preferences.
+
+# 3 Searching for Meals by Names
+
+If we already have a particular meal in mind, we can use the `search_meal()` function to find meals containing a specific keyword in their name. This is useful for locating recipes when we only have a general idea of what we want.\
+For example, let’s search for all meals that contain "pasta" in their name:
+
+```{r}
+# Search for meals that contain "pasta"
+pasta_meals <- search_meal("pasta")
+
+# Convert the results into a tibble for easier readability
+pasta_df <- tibble(
+  Meal = sapply(pasta_meals, `[[`, "strMeal"),
+  Category = sapply(pasta_meals, `[[`, "strCategory"),
+  Area = sapply(pasta_meals, `[[`, "strArea"),
+  Instructions = sapply(pasta_meals, `[[`, "strInstructions")
+)
+
+# Preview a few results
+head(pasta_df)
+
+```
+
+This query returns a list of meals whose names contain "pasta", along with useful metadata such as their category, region (cuisine), and cooking instructions.\
+Practical Use Case: If you're craving a specific dish but need a recipe, this function allows you to search for matching meal names quickly.
+
+# 4 Fetching Detailed Information About a Specific Meal
+
+Once we find a meal of interest, we might want detailed information about it, including a full list of ingredients, preparation steps, and a reference image.\
+We can do this using the `get_meal_by_id()` function by specifying a meal’s unique identifier:
+
+```{r}
+# Fetch details for a specific meal by its ID
+meal_details <- get_meal_by_id("52772")
+
+# Display the detailed meal information
+meal_details
+
+```
+
+This function provides everything needed to prepare the dish, including:\
+- A step-by-step recipe\
+- A high-quality image of the final dish\
+- A YouTube link to a cooking tutorial\
+When to Use: If you find an interesting meal via search_meal(), you can retrieve all necessary details using its ID.
+
+# 5 Exploring Meals by Category
+
+If we want to browse meals within a specific category, we can use the `get_meals_by_category()` function. This allows us to see all meals under a classification such as "Seafood" or "Vegetarian."
+
+```{r}
+# Fetch meals belonging to the "Seafood" category
+seafood_meals <- get_meals_by_category("Seafood")
+
+# Convert results into a tibble
+seafood_df <- tibble(
+  Meal = sapply(seafood_meals, `[[`, "strMeal"),
+  MealThumb = sapply(seafood_meals, `[[`, "strMealThumb")
+)
+
+# Display the first few seafood meals
+head(seafood_df)
+
+```
+
+This function helps in diet-based meal exploration, allowing us to find meals suitable for specific dietary restrictions or preferences.
+
+# 6 Data Visualization: Plotting the Number of Meals Per Category
+
+Now that we have explored different meals and categories, let's move towards data visualization.\
+**Goal:**\
+We will create a bar chart showing the number of meals available in different categories, providing a quick insight into which categories have the most meal options.\
+
+```{r}
+# Define a set of categories for analysis
+categories <- c("Seafood", "Vegetarian", "Dessert", "Pasta", "Beef")
+
+# Retrieve meal counts for each category
+meal_counts <- sapply(categories, function(cat) length(get_meals_by_category(cat)))
+
+# Create a tibble to store the results
+plot_data <- tibble(
+  Category = categories,
+  Count = meal_counts
+)
+
+# Generate a bar chart
+ggplot(plot_data, aes(x = Category, y = Count, fill = Category)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Number of Meals per Category", x = "Category", y = "Meal Count") +
+  theme(legend.position = "none")
+
+```
+
+Interpretation\
+- This visualization allows us to see which meal categories are most common in TheMealDB.\
+- It helps in identifying underrepresented meal types, which might be useful for culinary research.\
+- It provides a quick summary of meal distributions across different categories.\
+
+# 7 Conclusion
+
+In this vignette, we explored the rmealdb package and demonstrated how to:\
+- Retrieve meal categories for high-level exploration.\
+- Search for meals based on keywords.\
+- Fetch full meal details, including recipes and images.\
+- Analyze meals by category and region to explore cuisine diversity.\
+- Visualize the distribution of meal categories using ggplot2.\
+The rmealdb package is an excellent tool for food enthusiasts, data scientists, and developers who wish to work with culinary datasets in R. By integrating this workflow into your projects, you can unlock new insights into food trends and recipe data.
